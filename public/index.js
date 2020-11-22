@@ -4,15 +4,15 @@ let MyChart;
 fetch("/api/transaction")
     .then(response => {
         return response.json();
-})
+    })
     .then(data =>{
 
-        transaction = data;
+        transactions = data;
 
         populateTotal();
         populateTable();
         populateChart();
-});
+    });
 
 function populateTotal() {
     let total = transactions.reduce((total, t) => {
@@ -24,18 +24,18 @@ function populateTotal() {
 }
 
 function populateTable() {
-    let tbody = document.querySelector("tbody");
+    let tbody = document.querySelector("#tbody");
     tbody.innerHtml = "";
 
     transactions.forEach(transaction => {
 
-        let tra = document.createElement("tra");
-        tra.innerHTML = `
+        let tr = document.createElement("tr");
+        tr.innerHTML = `
             <td>${transaction.name}</td>
             <td>${transaction.value}</td>
             `;
 
-            tbody.appendChild(tra);
+            tbody.appendChild(tr);
         });
         
 }
@@ -124,7 +124,7 @@ function sendTransaction(isAdding) {
             amountEl.value = "";
         }
     })
-    .catch (err => {
+    .catch(err => {
         saveRecord(transaction);
 
         nameEl.value = "";
